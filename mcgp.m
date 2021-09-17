@@ -6,8 +6,8 @@ close all;
 rng(1);
 
 % contour plots of the exact solution and the MC solution
-x = linspace(-0.5, 0.5);
-y = linspace(-0.5, 0.5);
+x = linspace(0.0, 1.0);
+y = linspace(0.0, 1.0);
 [X, Y] = meshgrid(x, y);
 
 V = zeros(size(X));
@@ -37,7 +37,7 @@ disp(re);
 % relative error wrt the number of paths used
 npaths = [8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536];
 rel_errors = zeros(size(npaths));
-p = [0.25 0.0];
+p = [0.25 0.5];
 gp = g(p); % reference value
 for i=1:length(npaths)
     sp = solveHarmonic(p, @(x) distToSquare(x), @(x) g(x), npaths(i), 0);
@@ -56,10 +56,10 @@ sp = solveHarmonic(p, @(x) distToSquare(x), @(x) g(x), 16, 1);
 
 function d = distToSquare(p)
 % dist function to unit length square centered at (0,0)
-d1 = abs(p(1)-0.5);
-d2 = abs(p(1)+0.5);
-d3 = abs(p(2)-0.5);
-d4 = abs(p(2)+0.5);
+d1 = abs(p(1)-1.0);
+d2 = abs(p(1));
+d3 = abs(p(2)-1.0);
+d4 = abs(p(2)+0.0);
 d = min(d1, min(d2, min(d3, d4)));
 end
 
